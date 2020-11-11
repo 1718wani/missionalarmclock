@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "618568917087",
+    "firebase_url": "https://missionalertclockproject.firebaseio.com",
+    "project_id": "missionalertclockproject",
+    "storage_bucket": "missionalertclockproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:618568917087:android:a6d1a7ff7ad07fa1923bea",
+        "android_client_info": {
+          "package_name": "com.example.ikuya.missionalertclock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "618568917087-04gja9758v6s1ip1mrmhnb4da6n40i7i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8yMcG0CnufO5QI5CutkVor6iI4B1fALs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "618568917087-04gja9758v6s1ip1mrmhnb4da6n40i7i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

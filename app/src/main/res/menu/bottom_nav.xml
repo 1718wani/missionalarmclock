@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+
+    <item
+        android:id="@+id/timersetFragment"
+        android:icon="@drawable/ic_baseline_alarm_24"
+        android:title="alart"/>
+    <item
+        android:id="@+id/sleepRecordFragment"
+        android:icon="@drawable/ic_baseline_show_chart_24"
+        android:title="chart"/>
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="Settings"/>
+</menu>
