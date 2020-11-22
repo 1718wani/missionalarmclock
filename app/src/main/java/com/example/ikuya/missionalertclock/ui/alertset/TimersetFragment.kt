@@ -28,10 +28,10 @@ class TimersetFragment: Fragment() {
     override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val appButton: Button = view.findViewById(R.id.timerstartbtn)
-        appButton.setOnClickListener(View.OnClickListener {
+        appButton.setOnClickListener {
             val intent = Intent(activity, TakePhotoActivity::class.java)
             startActivity(intent)
-        })
+        }
     }
 
 //    binding = DataBindingUtil.inflate(
