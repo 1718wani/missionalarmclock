@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.system.Os.close
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -35,12 +36,13 @@ import java.util.concurrent.Executors
 import com.example.ikuya.missionalertclock.R
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.label.ImageLabeling
+import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
 import java.nio.ByteBuffer
 
-typealias LumaListener = (luma: Double) -> Unit
 
 
-class TakePhotoActivity : AppCompatActivity(){
+class TakePhotoActivity : AppCompatActivity() {
 
     private lateinit var bottomSheetBehavier: BottomSheetBehavior<LinearLayout>
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
@@ -56,7 +58,8 @@ class TakePhotoActivity : AppCompatActivity(){
             startCamera()
         } else {
             ActivityCompat.requestPermissions(
-                this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
+                this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
+            )
         }
 
         // Set up the listener for take photo button
@@ -84,7 +87,8 @@ class TakePhotoActivity : AppCompatActivity(){
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(
-            baseContext, it) == PackageManager.PERMISSION_GRANTED
+            baseContext, it
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
 
@@ -108,9 +112,7 @@ class TakePhotoActivity : AppCompatActivity(){
         val imageAnalyzer = ImageAnalysis.Builder()
             .build()
             .also {
-                it.setAnalyzer(cameraExecutor,ImageAnalyze { luma ->
-                    Log.d(TAG, "🎈Average luminosity: $luma")
-                })
+                it.setAnalyzer(cameraExecutor, ImageAnalyze())
             }
 
         val camera = cameraProvider.bindToLifecycle(
@@ -136,67 +138,51 @@ class TakePhotoActivity : AppCompatActivity(){
     }
 
     //CameraXによる画像解析
+    private class ImageAnalyze : ImageAnalysis.Analyzer {
 
 
-    private class ImageAnalyze (private val listener: LumaListener) : ImageAnalysis.Analyzer {
+        @SuppressLint("UnsafeExperimentalUsageError")
+        override fun analyze(imageProxy: ImageProxy) {
+            val mediaImage = imageProxy.image
+            if (mediaImage != null) {
+                val image =
+                    InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
 
-        private fun ByteBuffer.toByteArray(): ByteArray {
-            rewind()    // Rewind the buffer to zero
-            val data = ByteArray(remaining())
-            get(data)   // Copy the buffer into a byte array
-            return data // Return the byte array
+                imageProxy.close()
+            }
+
+
+            fun doObjectClassification(image: InputImage) {
+
+                val labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS)
+
+                labeler.process(image)
+                    .addOnSuccessListener { labels ->
+                        // Task completed successfully
+                        // ...
+                        for (label in labels) {
+                            val text = label.text
+                            val confidence = label.confidence
+                            val index = label.index
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        // Task failed with an exception
+                        // ...
+                    }
+                return
+            }
+
         }
-
-        override fun analyze(image: ImageProxy) {
-
-            val buffer = image.planes[0].buffer
-            val data = buffer.toByteArray()
-            val pixels = data.map { it.toInt() and 0xFF }
-            val luma = pixels.average()
-
-
-
-            listener(luma)
-
-            image.close()
-        }
-
-
-//    private class ImageAnalyze (private val listener: LumaListener) : ImageAnalysis.Analyzer {
-//
-//        private fun ByteBuffer.toByteArray(): ByteArray {
-//            rewind()    // Rewind the buffer to zero
-//            val data = ByteArray(remaining())
-//            get(data)   // Copy the buffer into a byte array
-//            return data // Return the byte array
-//        }
-//
-//        override fun analyze(image: ImageProxy) {
-//
-//            val buffer = image.planes[0].buffer
-//            val data = buffer.toByteArray()
-//            val pixels = data.map { it.toInt() and 0xFF }
-//            val luma = pixels.average()
-//
-//
-//
-//            listener(luma)
-//
-//            image.close()
-//        }
-
-
-
-
 
     }
-
-
-
-
-
-
 }
+
+
+
+
+
+
 
 
 
