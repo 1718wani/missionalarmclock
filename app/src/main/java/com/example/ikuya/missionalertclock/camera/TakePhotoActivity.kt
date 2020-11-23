@@ -38,6 +38,8 @@ import com.google.common.util.concurrent.ListenableFuture
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.label.ImageLabeling
 import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
+import com.google.mlkit.vision.text.Text
+import com.google.mlkit.vision.text.TextRecognition
 import java.nio.ByteBuffer
 
 
@@ -140,19 +142,13 @@ class TakePhotoActivity : AppCompatActivity() {
     //CameraXによる画像解析
     private class ImageAnalyze : ImageAnalysis.Analyzer {
 
-
         @SuppressLint("UnsafeExperimentalUsageError")
-        override fun analyze(imageProxy: ImageProxy) {
+        override fun analyze (imageProxy: ImageProxy){
             val mediaImage = imageProxy.image
             if (mediaImage != null) {
-                val image =
-                    InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
+                val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
                 doObjectClassification(image)
-                imageProxy.close()
-            }else{
-                Log.d(TAG,"cannnot analyze")
-                imageProxy.close()
-            }
+        }
 
         fun doObjectClassification(image: InputImage) {
              val labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS)
@@ -183,23 +179,42 @@ class TakePhotoActivity : AppCompatActivity() {
 
         }
 
-        fun deTextRecognition (image: InputImage) {
+        private fun deTextRecognition (image: InputImage) {
+            val recognizer = TextRecognition.getClient()
             val result = recognizer.process(image)
                 .addOnSuccessListener { visionText ->
                     // Task completed successfully
-                    parseResultText()
+                    parseResultText(visionText)
                 }
                 .addOnFailureListener { e ->
                     // Task failed with an exception
                     // ...
                 }
+
+
         }
 
+        private fun parseResultText(result:Text) {
+            val resultText = result.text
+            for (block in result.textBlocks) {
+                val blockText = block.text
+                val blockCornerPoints = block.cornerPoints
+                val blockFrame = block.boundingBox
+                for (line in block.lines) {
+                    val lineText = line.text
+                    val lineCornerPoints = line.cornerPoints
+                    val lineFrame = line.boundingBox
+                    for (element in line.elements) {
+                        val elementText = element.text
+                        val elementCornerPoints = element.cornerPoints
+                        val elementFrame = element.boundingBox
+                    }
+                }
+            }
 
 
 
-
-
+        }
 
     }
 }
@@ -214,255 +229,3 @@ class TakePhotoActivity : AppCompatActivity() {
 
 
 
-
-//typealias ODetection = (odt: Array<String?>) -> Unit
-//private const val TAG = "CameraXBasic"
-//
-//class TakePhotoActivity : AppCompatActivity() {
-//    private var preview: Preview? = null
-//    private var imageCapture: ImageCapture? = null
-//    private var imageAnalyzer: ImageAnalysis? = null
-//    private var camera: Camera? = null
-//    private lateinit var bottomSheetBehavier: BottomSheetBehavior<LinearLayout>
-//
-//    private lateinit var outputDirectory: File
-////    private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
-//
-//    private lateinit var cameraExecutor: ExecutorService
-//
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.take_photo_activity)
-//
-////        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-////        supportActionBar!!.setHomeButtonEnabled(true)
-//
-//        // BottomSheetを設定
-//        bottomSheetBehavier = BottomSheetBehavior.from(bottomSheetLayout)
-//
-//        // Request camera permissions
-//        if (allPermissionsGranted()) {
-//            startCamera()
-//        } else {
-//            ActivityCompat.requestPermissions(
-//                this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
-//            )
-//        }
-//        // Setup the listener for take photo button
-//        outputDirectory = getOutputDirectory()
-//        cameraExecutor = Executors.newSingleThreadExecutor()
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        val id: Int = item.itemId
-//        if (id == R.id.settingsFragment) {
-//            return true
-//        }
-//        when (item.itemId) {
-//            android.R.id.home -> finish()
-//            else -> {
-//                Log.e(TAG,"Is it Ok" )
-//            }
-//        }
-//        return super.onOptionsItemSelected(item)
-//    }
-//
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int, permissions: Array<String>, grantResults:
-//        IntArray
-//    ) {
-//        if (requestCode == REQUEST_CODE_PERMISSIONS) {
-//            if (allPermissionsGranted()) {
-//                startCamera()
-//                Log.e(TAG,"kameragakidousitayon")
-//            } else {
-//                Toast.makeText(
-//                    this,
-//                    "Permissions not granted by the user.",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//                finish()
-//            }
-//        }
-//    }
-//
-//
-//
-//    //MARK:  ===== カメラ起動 =====
-//    private fun startCamera() {
-//        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
-//        val frameLayout = FrameLayout(this)
-//        cameraProviderFuture.addListener(Runnable {
-//            // Used to bind the lifecycle of cameras to the lifecycle owner
-//            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
-//
-//            // Preview
-//            preview = Preview.Builder()
-//                .build()
-//
-//            imageCapture = ImageCapture.Builder()
-//                .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
-//                .build()
-//
-//            imageAnalyzer = ImageAnalysis.Builder()
-//                .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-//                .build()
-//                .also {
-//                    // OCRの結果
-//                    it.setAnalyzer(cameraExecutor, ImageAnalyze { txtArr ->
-//                        var showTxt = ""
-//                        frameLayout.removeAllViews()
-//                        for (txt in txtArr) {
-//                            txt?.let {
-//                                showTxt += " $txt"
-//                            }
-//                        }
-//                        bottomSheetText.text = showTxt
-//                        Log.d(TAG, "listener fired!: $showTxt")
-//                    })
-//                }
-//
-////             Select back camera
-//            val cameraSelector =
-//                CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build()
-//
-//            try {
-//                // Unbind use cases before rebinding
-//                cameraProvider.unbindAll()
-//
-//                // Bind use cases to camera
-//                camera = cameraProvider.bindToLifecycle(
-//                    this, cameraSelector, preview, imageCapture, imageAnalyzer
-//                )
-//                preview?.setSurfaceProvider(viewFinder.createSurfaceProvider(camera?.cameraInfo))
-//            } catch (exc: Exception) {
-//                Log.e(TAG, "Use case binding failed", exc)
-//            }
-//
-//        }, ContextCompat.getMainExecutor(this))
-//    }
-//
-//    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-//        ContextCompat.checkSelfPermission(
-//            baseContext, it
-//        ) == PackageManager.PERMISSION_GRANTED
-//    }
-//
-//    private fun getOutputDirectory(): File {
-//        val mediaDir = externalMediaDirs.firstOrNull()?.let {
-//            File(it, resources.getString(R.string.app_name)).apply { mkdirs() } }
-//        return if (mediaDir != null && mediaDir.exists())
-//            mediaDir else filesDir
-//    }
-//
-//    companion object {
-//        private const val REQUEST_CODE_PERMISSIONS = 10
-//        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
-//    }
-//
-//
-//
-//    // 画像分析 - フレームごとにオブジェクト分類
-//    class ImageAnalyze(private val listener: ODetection): ImageAnalysis.Analyzer {
-//        val options = FirebaseVisionOnDeviceImageLabelerOptions.Builder()
-//            .setConfidenceThreshold(0.7f)
-//            .build()
-//        val labeler = FirebaseVision.getInstance().getOnDeviceImageLabeler(options)
-//
-//        val detector = FirebaseVision.getInstance()
-//            .onDeviceTextRecognizer
-//
-//        private fun degreesToFirebaseRotation(degrees: Int): Int = when (degrees) {
-//            0 -> FirebaseVisionImageMetadata.ROTATION_0
-//            90 -> FirebaseVisionImageMetadata.ROTATION_90
-//            180 -> FirebaseVisionImageMetadata.ROTATION_180
-//            270 -> FirebaseVisionImageMetadata.ROTATION_270
-//            else -> throw Exception("Rotation must be 0, 90, 180, or 270.")
-//        }
-//
-//        // フレームごとに呼ばれる
-//        override fun analyze(image: ImageProxy) {
-//            // Pass image to an ML Kit Vision API
-//            doObjectClassification(image)
-//            Log.e(TAG,"analyze")
-//            image.close()
-//            return
-//
-//        }
-//
-//        // 画像分類
-//        @SuppressLint("UnsafeExperimentalUsageError")
-//        private fun doObjectClassification(proxy: ImageProxy) {
-//            val mediaImage = proxy.image ?: return
-//            val imageRotation = degreesToFirebaseRotation(proxy.imageInfo.rotationDegrees)
-//            val image = FirebaseVisionImage.fromMediaImage(mediaImage, imageRotation)
-//            labeler.processImage(image)
-//                .addOnSuccessListener { labels ->
-//                    // Task completed successfully
-//                    for (label in labels) {
-//                        val text = label.text
-//                        Log.d(TAG, "text: $text")
-//                        if (text == "Paper") {
-//                            doTextRecognition(image)
-//                        } else {
-//                            // do something
-//                            Log.e(TAG,"Is it Ok" )
-//                        }
-//                    }
-//                    proxy.close()
-//                }
-//                .addOnFailureListener { e ->
-//                    // Task failed with an exception
-//                    Log.e(TAG, e.toString())
-//                    proxy.close()
-//                }
-//        }
-//
-//        //文字認識 - 書類に書かれた文字のみ認識する　
-//        private fun doTextRecognition(image: FirebaseVisionImage) {
-//            val result = detector.processImage(image)
-//                .addOnSuccessListener { firebaseVisionText ->
-//                    // Task completed successfully
-//                    parseResultText(firebaseVisionText)
-//                    Log.d(TAG, "OCR Succeeded!")
-//                }
-//                .addOnFailureListener { e ->
-//                    // Task failed with an exception
-//                    Log.d(TAG, "OCR Failed...")
-//                    Log.e(TAG, e.toString())
-//                }
-//        }
-//
-//        // パース - OCRで認識された文字列をParseする
-//         private fun parseResultText(result: FirebaseVisionText) {
-//            var resultTxtList:Array<String?> = arrayOf(null)
-//            for (block in result.textBlocks) {
-//                val blockText = block.text
-//                // If you need more data, Uncommentout here
-//                val blockConfidence = block.confidence
-//                val blockLanguages = block.recognizedLanguages
-//                val blockCornerPoints = block.cornerPoints
-//                val blockFrame = block.boundingBox
-//                resultTxtList += blockText
-//                // If you need more data, Uncommentout here
-//                for (line in block.lines) {
-//                    val lineText = line.text
-//                    val lineConfidence = line.confidence
-//                    val lineLanguages = line.recognizedLanguages
-//                    val lineCornerPoints = line.cornerPoints
-//                    val lineFrame = line.boundingBox
-//                    for (element in line.elements) {
-//                        val elementText = element.text
-//                        val elementConfidence = element.confidence
-//                        val elementLanguages = element.recognizedLanguages
-//                        val elementCornerPoints = element.cornerPoints
-//                        val elementFrame = element.boundingBox
-//                    }
-//                }
-//            }
-//            Log.d("RESULT_TEXT", resultTxtList.toString())
-//            listener(resultTxtList)
-//        }
-//    }
-//}
