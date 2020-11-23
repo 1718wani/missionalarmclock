@@ -147,14 +147,15 @@ class TakePhotoActivity : AppCompatActivity() {
             if (mediaImage != null) {
                 val image =
                     InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
-
+                doObjectClassification(image)
+                imageProxy.close()
+            }else{
+                Log.d(TAG,"cannnot analyze")
                 imageProxy.close()
             }
 
-
-            fun doObjectClassification(image: InputImage) {
-
-                val labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS)
+        fun doObjectClassification(image: InputImage) {
+             val labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS)
 
                 labeler.process(image)
                     .addOnSuccessListener { labels ->
@@ -162,18 +163,43 @@ class TakePhotoActivity : AppCompatActivity() {
                         // ...
                         for (label in labels) {
                             val text = label.text
-                            val confidence = label.confidence
-                            val index = label.index
+                            Log.d(TAG, "text: $text")
+                            if (text == "Paper") {
+                                doTextRecognition(image)
+                            } else {
+                                // do something
+                            }
                         }
+
+
                     }
                     .addOnFailureListener { e ->
                         // Task failed with an exception
                         // ...
+                        Log.e(TAG, e.toString())
                     }
-                return
+
             }
 
         }
+
+        fun deTextRecognition (image: InputImage) {
+            val result = recognizer.process(image)
+                .addOnSuccessListener { visionText ->
+                    // Task completed successfully
+                    parseResultText()
+                }
+                .addOnFailureListener { e ->
+                    // Task failed with an exception
+                    // ...
+                }
+        }
+
+
+
+
+
+
 
     }
 }
