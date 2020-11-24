@@ -35,6 +35,7 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import com.example.ikuya.missionalertclock.R
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.vision.text.TextBlock
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.label.ImageLabeling
@@ -116,8 +117,12 @@ class TakePhotoActivity : AppCompatActivity() {
             .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
             .build()
             .also {
-                it.setAnalyzer(cameraExecutor, ImageAnalyze())
+                it.setAnalyzer(cameraExecutor, ImageAnalyze(
+                    bottomSheetText.text = result
+                ))
             }
+
+
 
         val camera = cameraProvider.bindToLifecycle(
             this as LifecycleOwner,
@@ -129,6 +134,9 @@ class TakePhotoActivity : AppCompatActivity() {
         preview.setSurfaceProvider(view_finder.createSurfaceProvider(camera.cameraInfo))
 
     }
+
+
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -179,7 +187,7 @@ class TakePhotoActivity : AppCompatActivity() {
 
         private fun doTextRecognition(image: InputImage) {
             val recognizer = TextRecognition.getClient()
-            val result = recognizer.process(image)
+            recognizer.process(image)
                 .addOnSuccessListener { visionText ->
                     // Task completed successfully
                     parseResultText(visionText)
@@ -189,7 +197,6 @@ class TakePhotoActivity : AppCompatActivity() {
                     // ...
                 }
 
-            result
 
         }
 
@@ -214,6 +221,9 @@ class TakePhotoActivity : AppCompatActivity() {
         }
     }
 }
+
+
+
 
 
 
