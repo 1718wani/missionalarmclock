@@ -3,7 +3,9 @@ package com.example.ikuya.missionalertclock.service
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Build
+import com.example.ikuya.missionalertclock.receiver.AlarmReceiver
 
 class AlarmService (private val context: Context){
     private val alarmManager:AlarmManager? =
@@ -32,5 +34,14 @@ class AlarmService (private val context: Context){
     }
 
 
-//    private fun getIntent() =
+    private fun getIntent() = Intent(context,AlarmReceiver::class.java)
+
+//    private fun getPendingIntent() =
+//        PendingIntent.getBroadcast(
+//            context
+//        )
+
+
+
+
 }

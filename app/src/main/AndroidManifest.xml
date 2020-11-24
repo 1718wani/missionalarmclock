@@ -35,6 +35,8 @@
 
         <activity android:name=".camera.TakePhotoActivity">
         </activity>
+
+        <receiver android:name=".receiver.AlarmReceiver" />
     </application>
 
 </manifest>

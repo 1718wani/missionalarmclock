@@ -34,14 +34,15 @@ import java.io.File
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import com.example.ikuya.missionalertclock.R
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.label.ImageLabeling
 import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
+import com.google.mlkit.vision.text.TextRecognizer
 import java.nio.ByteBuffer
-
 
 
 class TakePhotoActivity : AppCompatActivity() {
@@ -112,6 +113,7 @@ class TakePhotoActivity : AppCompatActivity() {
             .build()
 
         val imageAnalyzer = ImageAnalysis.Builder()
+            .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
             .build()
             .also {
                 it.setAnalyzer(cameraExecutor, ImageAnalyze())
@@ -143,43 +145,39 @@ class TakePhotoActivity : AppCompatActivity() {
     private class ImageAnalyze : ImageAnalysis.Analyzer {
 
         @SuppressLint("UnsafeExperimentalUsageError")
-        override fun analyze (imageProxy: ImageProxy){
+        override fun analyze(imageProxy: ImageProxy) {
             val mediaImage = imageProxy.image
             if (mediaImage != null) {
-                val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
+                val image =
+                    InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
                 doObjectClassification(image)
+
+            }
         }
 
         fun doObjectClassification(image: InputImage) {
-             val labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS)
+            val labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS)
 
-                labeler.process(image)
-                    .addOnSuccessListener { labels ->
-                        // Task completed successfully
-                        // ...
-                        for (label in labels) {
-                            val text = label.text
-                            Log.d(TAG, "text: $text")
-                            if (text == "Paper") {
-                                doTextRecognition(image)
-                            } else {
-                                // do something
-                            }
+            labeler.process(image)
+                .addOnSuccessListener { labels ->
+                    for (label in labels) {
+                        val text = label.text
+                        Log.d(TAG, "text: $text")
+                        if (text == "Paper") {
+                            doTextRecognition(image)
+                        } else {
+                            // do something
                         }
-
-
                     }
-                    .addOnFailureListener { e ->
-                        // Task failed with an exception
-                        // ...
-                        Log.e(TAG, e.toString())
-                    }
-
-            }
+                }
+                .addOnFailureListener { e ->
+                    Log.e(TAG, e.toString())
+                }
 
         }
 
-        private fun deTextRecognition (image: InputImage) {
+
+        private fun doTextRecognition(image: InputImage) {
             val recognizer = TextRecognition.getClient()
             val result = recognizer.process(image)
                 .addOnSuccessListener { visionText ->
@@ -191,10 +189,11 @@ class TakePhotoActivity : AppCompatActivity() {
                     // ...
                 }
 
+            result
 
         }
 
-        private fun parseResultText(result:Text) {
+        private fun parseResultText(result: Text) {
             val resultText = result.text
             for (block in result.textBlocks) {
                 val blockText = block.text
@@ -211,11 +210,8 @@ class TakePhotoActivity : AppCompatActivity() {
                     }
                 }
             }
-
-
-
+            resultText
         }
-
     }
 }
 
