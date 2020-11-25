@@ -46,6 +46,7 @@ import com.google.mlkit.vision.text.TextRecognizer
 import java.nio.ByteBuffer
 
 
+typealias ODetection = (odt: String?) -> Unit
 class TakePhotoActivity : AppCompatActivity() {
 
     private lateinit var bottomSheetBehavier: BottomSheetBehavior<LinearLayout>
@@ -117,9 +118,12 @@ class TakePhotoActivity : AppCompatActivity() {
             .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
             .build()
             .also {
-                it.setAnalyzer(cameraExecutor, ImageAnalyze(
-                    bottomSheetText.text = result
-                ))
+                it.setAnalyzer(cameraExecutor, ImageAnalyze{ txtArr ->
+                    var showTxt = txtArr
+                    bottomSheetText.text = showTxt
+
+
+                })
             }
 
 
@@ -150,7 +154,7 @@ class TakePhotoActivity : AppCompatActivity() {
     }
 
     //CameraXによる画像解析
-    private class ImageAnalyze : ImageAnalysis.Analyzer {
+    private class ImageAnalyze (private val listener: ODetection): ImageAnalysis.Analyzer {
 
         @SuppressLint("UnsafeExperimentalUsageError")
         override fun analyze(imageProxy: ImageProxy) {
@@ -217,7 +221,7 @@ class TakePhotoActivity : AppCompatActivity() {
                     }
                 }
             }
-            resultText
+            listener(resultText)
         }
     }
 }
