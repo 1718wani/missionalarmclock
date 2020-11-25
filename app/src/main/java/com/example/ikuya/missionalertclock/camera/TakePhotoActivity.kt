@@ -122,8 +122,8 @@ class TakePhotoActivity : AppCompatActivity() {
                     var showTxt = txtArr
                     bottomSheetText.text = showTxt
 
-
                 })
+
             }
 
 
@@ -138,6 +138,17 @@ class TakePhotoActivity : AppCompatActivity() {
         preview.setSurfaceProvider(view_finder.createSurfaceProvider(camera.cameraInfo))
 
     }
+
+//    fun MovetoSuccessPage (showTxt:String){
+//        val regex = Regex("p")
+//        if{
+//            regex.containsMatchIn(showTxt)
+//
+//        }else{
+//
+//        }
+//
+//    }
 
 
 

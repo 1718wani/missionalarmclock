@@ -1,4 +1,4 @@
-package com.example.ikuya.missionalertclock.ui.alertset
+package com.example.ikuya.missionalertclock.ui.alert
 
 import android.app.Dialog
 import android.app.TimePickerDialog

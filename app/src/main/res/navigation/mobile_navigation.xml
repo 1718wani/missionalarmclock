@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/timersetFragment"
-        android:name="com.example.ikuya.missionalertclock.ui.alertset.TimersetFragment"
+        android:name="com.example.ikuya.missionalertclock.ui.alert.TimersetFragment"
         android:label="timerset_fragment"
         tools:layout="@layout/timerset_fragment" />
     <fragment
