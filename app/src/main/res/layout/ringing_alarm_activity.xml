@@ -5,9 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <TextView
-        android:id="@+id/timerdisplay"
+        android:id="@+id/timerdisplayatringing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_constraintBottom_toBottomOf="parent"
@@ -18,11 +17,27 @@
         tools:layout_editor_absoluteX="128dp"
         tools:layout_editor_absoluteY="306dp" />
 
-    <Switch
-        android:id="@+id/AlarmCancelBtn"
+    <TextView
+        android:id="@+id/goodMorningTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/alarmcancelBtn"
-        tools:layout_editor_absoluteX="170dp"
-        tools:layout_editor_absoluteY="590dp" />
+        android:text="@string/goodmorningTxt"
+        tools:layout_editor_absoluteX="64dp"
+        tools:layout_editor_absoluteY="77dp" />
+
+    <Button
+        android:id="@+id/CameraMissionStartBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cameramissionstartbtn"
+        tools:layout_editor_absoluteX="129dp"
+        tools:layout_editor_absoluteY="544dp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/emergencyalarmstopbtn"
+        tools:layout_editor_absoluteX="128dp"
+        tools:layout_editor_absoluteY="621dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

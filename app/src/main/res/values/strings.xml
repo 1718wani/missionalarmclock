@@ -22,4 +22,8 @@
     <string name="action_settings">Settings</string>
     <string name="take_photo_result_yell">今日も頑張ろう！</string>
     <string name="take_photo_result" />
+    <string name="alarmcancelBtn">キャンセル</string>
+    <string name="goodmorningTxt">おはようございます！\n今日も目標を確認して一日を始めましょう！</string>
+    <string name="cameramissionstartbtn">カメラを起動する</string>
+    <string name="emergencyalarmstopbtn">強制的に終了する</string>
 </resources>
