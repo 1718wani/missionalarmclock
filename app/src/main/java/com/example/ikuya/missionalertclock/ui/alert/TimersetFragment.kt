@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.TimePicker
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.example.ikuya.missionalertclock.R
 import com.example.ikuya.missionalertclock.alarm.DuringAlarmSetClock
 import kotlinx.android.synthetic.main.timerset_fragment.*

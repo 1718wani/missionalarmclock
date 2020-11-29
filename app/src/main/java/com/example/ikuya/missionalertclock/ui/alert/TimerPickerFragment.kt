@@ -2,6 +2,7 @@ package com.example.ikuya.missionalertclock.ui.alert
 
 import android.app.Dialog
 import android.app.TimePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.View
@@ -19,7 +20,8 @@ class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener 
         val minute = c.get(Calendar.MINUTE)
 
         // Create a new instance of TimePickerDialog and return it
-        return TimePickerDialog(activity, this, hour, minute, DateFormat.is24HourFormat(activity))
+        return TimePickerDialog(this.context as Context, activity as TimersetFragment, hour, minute, DateFormat.is24HourFormat(activity))
+
     }
 
     override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
