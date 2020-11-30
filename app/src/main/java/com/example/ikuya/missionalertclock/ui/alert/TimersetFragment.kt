@@ -1,6 +1,7 @@
 package com.example.ikuya.missionalertclock.ui.alert
 
 import android.app.TimePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import android.widget.TimePicker
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.viewpager.widget.ViewPager
 import com.example.ikuya.missionalertclock.R
 import com.example.ikuya.missionalertclock.alarm.DuringAlarmSetClock
 import kotlinx.android.synthetic.main.timerset_fragment.*
@@ -33,6 +35,12 @@ class TimersetFragment: Fragment(), TimePickerDialog.OnTimeSetListener {
             val intent = Intent(activity, DuringAlarmSetClock::class.java)
             startActivity(intent)
         }
+        val nxtbtn : Button = view.findViewById(R.id.timechangebtn) as Button
+        nxtbtn.setOnClickListener(object:View.OnClickListener {
+            override fun onClick(v: View?) {
+                showTimePickerDialog(nxtbtn)
+            }
+        })
     }
 
 
@@ -47,5 +55,9 @@ class TimersetFragment: Fragment(), TimePickerDialog.OnTimeSetListener {
         val newFragment = TimePickerFragment()
         newFragment.show(childFragmentManager, "timePicker")
     }
+
+
+
+
 
 }

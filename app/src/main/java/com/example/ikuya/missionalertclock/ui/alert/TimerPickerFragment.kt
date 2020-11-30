@@ -20,7 +20,7 @@ class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener 
         val minute = c.get(Calendar.MINUTE)
 
         // Create a new instance of TimePickerDialog and return it
-        return TimePickerDialog(this.context as Context, activity as TimersetFragment, hour, minute, DateFormat.is24HourFormat(activity))
+        return TimePickerDialog(activity, this, hour, minute, DateFormat.is24HourFormat(activity))
 
     }
 
