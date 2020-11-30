@@ -36,6 +36,9 @@
         <activity android:name=".camera.TakePhotoActivity">
         </activity>
 
+        <activity android:name=".alarm.DuringAlarmSetClock">
+        </activity>
+
         <receiver android:name=".receiver.AlarmReceiver" />
     </application>
 
