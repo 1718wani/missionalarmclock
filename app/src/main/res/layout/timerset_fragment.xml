@@ -6,19 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".ui.alert.TimersetFragment">
 
+
     <TextView
         android:id="@+id/AlertSetTitle"
         android:layout_width="324dp"
         android:layout_height="41dp"
+        android:layout_marginTop="20dp"
         android:text="@string/AlertSetTitle"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.163" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-
+    <TextView
+        android:id="@+id/timersetfragmentcurrenttime"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/TimerSetFragmentCurrentTimeTxt"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/timechangebtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AlertSetTitle" />
 
     <Button
         android:id="@+id/timechangebtn"
@@ -35,21 +50,12 @@
         android:id="@+id/timerstartbtn"
         android:layout_width="219dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="108dp"
+        android:layout_marginBottom="20dp"
         android:text="@string/timer_start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/timersetfragmentcurrenttime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/TimerSetFragmentCurrentTimeTxt"
-        tools:layout_editor_absoluteX="177dp"
-        tools:layout_editor_absoluteY="239dp" />
 
-    <!--        tools:ignore="OnClick" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

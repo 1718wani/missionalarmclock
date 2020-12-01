@@ -8,24 +8,50 @@ import android.text.format.DateFormat
 import android.view.View
 import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
+import kotlinx.android.synthetic.main.timerset_fragment.*
 import java.util.*
 
 
-class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener {
+class TimerPickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener {
+//
+    interface OnSelectedTimeListener {
+        fun selectedTime(hour: Int, minute: Int)
+    }
+
+    private lateinit var listener: OnSelectedTimeListener
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnSelectedTimeListener) {
+            listener = context
+        }
+    }
+
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Use the current time as the default values for the picker
-        val c = Calendar.getInstance()
-        val hour = c.get(Calendar.HOUR_OF_DAY)
-        val minute = c.get(Calendar.MINUTE)
-
-        // Create a new instance of TimePickerDialog and return it
-        return TimePickerDialog(activity, this, hour, minute, DateFormat.is24HourFormat(activity))
-
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = Date().time
+        val context = context // smart cast
+        return when {
+            context != null -> {
+                TimePickerDialog(
+                    context,
+                    this, // ここでは TimePickerDialog の リスナーを渡す
+                    calendar.get(Calendar.HOUR_OF_DAY),
+                    calendar.get(Calendar.MINUTE),
+                    true)
+            }
+            else -> super.onCreateDialog(savedInstanceState)
+        }
     }
 
-    override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
-        // Do something with the time chosen by the user
+    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+        listener.selectedTime(hourOfDay, minute)
     }
 
+    companion object {
+        @Suppress("unused")
+        private val TAG = TimerPickerFragment::class.java.simpleName
+    }
 }
