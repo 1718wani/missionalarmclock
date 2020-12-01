@@ -18,6 +18,10 @@ data class sleepdata (
         @ColumnInfo(name = "quality_rating")
         var sleepQuality: Int = -1
 
-//        @ColumnInfo(name = "quality_rating")
-//        var sleepQuality: Int = -1
+
+
+
+
+
+
 )
