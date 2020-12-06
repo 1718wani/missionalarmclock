@@ -20,7 +20,7 @@ import java.util.*
 
 
 
-class TimersetFragment: Fragment(), TimerPickerFragment.OnSelectedTimeListener {
+class TimersetFragment: Fragment(), TimePickerDialog.OnTimeSetListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,14 +44,28 @@ class TimersetFragment: Fragment(), TimerPickerFragment.OnSelectedTimeListener {
         })
     }
 
+    private val clickListener : OnSelectedTimeListener =
+        object :OnSelectedTimeListener{
+            override fun selectedTime(hour: Int, minute: Int) {
+                val str = String.format(Locale.US, "%d:%d", hour, minute)
+                // use the plug in of Kotlin Android Extensions
+                timersetfragmentcurrenttime.text = str
+            }
+
+        }
+
     fun showTimePickerDialog(v: View) {
         val newFragment = TimerPickerFragment()
-        newFragment.show(childFragmentManager, "timePicker")
+        newFragment.listener = clickListener
+        newFragment.show(childFragmentManager,"time_picker")
     }
 
 
-    override fun selectedTime(hour: Int, minute: Int) {
-        timersetfragmentcurrenttime.text = "${hour}時${minute}分"
+
+
+    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+
+
     }
 
 
