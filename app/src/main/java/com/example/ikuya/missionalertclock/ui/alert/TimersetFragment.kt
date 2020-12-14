@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager.widget.ViewPager
 import com.example.ikuya.missionalertclock.R
 import com.example.ikuya.missionalertclock.alarm.DuringAlarmSetClock
+import com.example.ikuya.missionalertclock.service.AlarmService
 import kotlinx.android.synthetic.main.timerset_fragment.*
 import java.util.*
 
@@ -30,7 +31,9 @@ class TimersetFragment: Fragment(), TimePickerDialog.OnTimeSetListener {
     }
 
     override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
+        lateinit var alarmservice: AlarmService
         super.onViewCreated(view, savedInstanceState)
+        alarmservice = AlarmService(this as Context)
         val appButton: Button = view.findViewById(R.id.timerstartbtn)
         appButton.setOnClickListener {
             val intent = Intent(activity, DuringAlarmSetClock::class.java)

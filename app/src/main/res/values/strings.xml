@@ -27,4 +27,5 @@
     <string name="cameramissionstartbtn">カメラを起動する</string>
     <string name="emergencyalarmstopbtn">強制的に終了する</string>
     <string name="TimerSetFragmentCurrentTimeTxt" >ここに文字が入ります</string>>
+    <string name="snooze" >スヌーズ</string>>
 </resources>

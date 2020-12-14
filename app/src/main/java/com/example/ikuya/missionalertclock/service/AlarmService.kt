@@ -26,18 +26,6 @@ class AlarmService(private val context: Context) {
         )
     }
 
-    //1 Week
-    fun setRepetitiveAlarm(timeInMillis: Long) {
-        setAlarm(
-            timeInMillis,
-            getPendingIntent(
-                getIntent().apply {
-                    action = Constants.ACTION_SET_REPETITIVE_EXACT
-                    putExtra(Constants.EXTRA_EXACT_ALARM_TIME, timeInMillis)
-                }
-            )
-        )
-    }
 
     private fun getPendingIntent(intent: Intent) =
         PendingIntent.getBroadcast(
