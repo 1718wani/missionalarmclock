@@ -1,5 +1,7 @@
 package com.example.ikuya.missionalertclock.alarm
 
+import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -16,6 +18,8 @@ class DuringAlarmSetClock: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.during_alarm_set_clock)
 
+
+
         val handler = Handler()
         timer(name = "testTimer", period = 1000) {
             val calendar = Calendar.getInstance()
@@ -28,5 +32,12 @@ class DuringAlarmSetClock: AppCompatActivity() {
         }
     }
 
-//    private fun Moveto
+    private fun MovetoNextRingingPage(){
+        lateinit var mp0:MediaPlayer
+        mp0= MediaPlayer.create(this,R.raw.plusmania)
+        mp0.isLooping=true
+        val intent = Intent(this, RingingAlarm::class.java)
+        startActivity(intent)
+        mp0.start()
+    }
 }

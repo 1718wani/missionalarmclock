@@ -38,6 +38,7 @@ class TimersetFragment: Fragment(), TimePickerDialog.OnTimeSetListener {
         appButton.setOnClickListener {
             val intent = Intent(activity, DuringAlarmSetClock::class.java)
             startActivity(intent)
+            val alreadsettime =
         }
         val nxtbtn : Button = view.findViewById(R.id.timechangebtn) as Button
         nxtbtn.setOnClickListener(object:View.OnClickListener {
