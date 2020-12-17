@@ -22,15 +22,6 @@ class TimerPickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener
 
     var listener: OnSelectedTimeListener? = null
 
-//    interface OnSelectedTimeListener {
-//        fun selectedTime(hour: Int, minute: Int)
-//    }
-//
-//
-//
-//    listener = activity as OnselectedTimeListener
-
-
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Use the current time as the default values for the picker
@@ -48,9 +39,4 @@ class TimerPickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener
         listener?.selectedTime(hourOfDay,minute)
 
     }
-
-//    companion object {
-//        @Suppress("unused")
-//        private val TAG = TimerPickerFragment::class.java.simpleName
-//    }
 }

@@ -17,6 +17,8 @@ import com.example.ikuya.missionalertclock.R
 import com.example.ikuya.missionalertclock.alarm.DuringAlarmSetClock
 import com.example.ikuya.missionalertclock.service.AlarmService
 import kotlinx.android.synthetic.main.timerset_fragment.*
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -38,7 +40,9 @@ class TimersetFragment: Fragment(), TimePickerDialog.OnTimeSetListener {
         appButton.setOnClickListener {
             val intent = Intent(activity, DuringAlarmSetClock::class.java)
             startActivity(intent)
-            val alreadsettime =
+            val timemill = getMilliFromDate(clickListener.toString())
+            (alarmservice.setExactAlarm(timemill))
+
         }
         val nxtbtn : Button = view.findViewById(R.id.timechangebtn) as Button
         nxtbtn.setOnClickListener(object:View.OnClickListener {
@@ -69,8 +73,17 @@ class TimersetFragment: Fragment(), TimePickerDialog.OnTimeSetListener {
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
 
-
     }
 
-
+    fun getMilliFromDate(dateFormat: String?): Long {
+        var date = Date()
+        val formatter = SimpleDateFormat("dd/MM/yyyy")
+        try {
+            date = formatter.parse(dateFormat)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+        println("Today is $date")
+        return date.getTime()
+    }
 }

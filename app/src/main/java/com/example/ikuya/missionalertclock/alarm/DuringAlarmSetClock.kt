@@ -7,16 +7,16 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.example.ikuya.missionalertclock.R
 import kotlinx.android.synthetic.main.during_alarm_set_clock.*
 import java.util.*
 import kotlin.concurrent.timer
+
 
 class DuringAlarmSetClock: AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.during_alarm_set_clock)
+        setContentView(com.example.ikuya.missionalertclock.R.layout.during_alarm_set_clock)
 
 
 
@@ -34,7 +34,7 @@ class DuringAlarmSetClock: AppCompatActivity() {
 
     private fun MovetoNextRingingPage(){
         lateinit var mp0:MediaPlayer
-        mp0= MediaPlayer.create(this,R.raw.plusmania)
+        mp0= MediaPlayer.create(this, com.example.ikuya.missionalertclock.R.raw.clocksound)
         mp0.isLooping=true
         val intent = Intent(this, RingingAlarm::class.java)
         startActivity(intent)

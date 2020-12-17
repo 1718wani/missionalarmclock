@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import com.example.ikuya.missionalertclock.receiver.AlarmReceiver
+import com.example.ikuya.missionalertclock.ui.alert.TimersetFragment
 import com.example.ikuya.missionalertclock.util.Constants
 import com.example.ikuya.missionalertclock.util.RandomUtil
 
@@ -20,6 +21,18 @@ class AlarmService(private val context: Context) {
             getPendingIntent(
                 getIntent().apply {
                     action = Constants.ACTION_SET_EXACT
+                    putExtra(Constants.EXTRA_EXACT_ALARM_TIME, timeInMillis)
+                }
+            )
+        )
+    }
+
+    fun setRepetitiveAlarm(timeInMillis: Long) {
+        setAlarm(
+            timeInMillis,
+            getPendingIntent(
+                getIntent().apply {
+                    action = Constants.ACTION_SET_REPETITIVE_EXACT
                     putExtra(Constants.EXTRA_EXACT_ALARM_TIME, timeInMillis)
                 }
             )
