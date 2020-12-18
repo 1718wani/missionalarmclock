@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Notification.EXTRA_NOTIFICATION_ID
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.NotificationManager.IMPORTANCE_HIGH
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -14,6 +15,7 @@ import android.text.format.DateFormat
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.app.NotificationManagerCompat.IMPORTANCE_HIGH
 import androidx.core.content.ContextCompat.getSystemService
 import com.example.ikuya.missionalertclock.R
 import com.example.ikuya.missionalertclock.alarm.RingingAlarm
@@ -50,20 +52,22 @@ class AlarmReceiver : BroadcastReceiver(){
     val channel_name = "channel_name"
     val channel_description = "channel_description "
 
-    fun createNotificationChannel() {
+    private fun createNotificationChannel(context: Context) {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
+            val name = channel_name
             val descriptionText = channel_description
             val importance = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel(CHANNEL_ID, channel_name, importance).apply {
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
                 description = descriptionText
             }
             // Register the channel with the system
-
-            notificationManager.createNotificationChannel(channel)
+            getNotificationManager(context).createNotificationChannel(channel)
         }
+    }
+    private fun getNotificationManager(context: Context): NotificationManager {
+        return context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     }
 
 //    var builder = NotificationCompat.Builder(this as Context, CHANNEL_ID)
@@ -71,14 +75,14 @@ class AlarmReceiver : BroadcastReceiver(){
 //        .setContentTitle("My notification")
 //        .setContentText("Much longer text that cannot fit one line...")
 //        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+    var channelId = "channelid"
+    var title = "Mission Alart Clock"
+    var text = "アラームが鳴りました"
+    var currentNotificationId = 1
 
+    fun buildNotification(context: Context, title: String, text: String ) {
 
-    fun buildNotification(context: Context, title: String, message: String) {
         // Create an explicit intent for an Activity in your app
-        var channelId = "channelid"
-        var title = "Mission Alart Clock"
-        var text = "アラームが鳴りました"
-        var currentNotificationId = 1
 
         val mainscreenintent = Intent(this as Context, RingingAlarm::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -91,7 +95,7 @@ class AlarmReceiver : BroadcastReceiver(){
             putExtra(EXTRA_NOTIFICATION_ID, 0)
         }
         val snoozePendingIntent: PendingIntent =
-            PendingIntent.getBroadcast(this as Context, 0, snoozeIntent, 0)
+            PendingIntent.getBroadcast(this , 0, snoozeIntent, 0)
         val builder = NotificationCompat.Builder(this,channelId )
             .setSmallIcon(R.drawable.notification_icon)
             .setContentTitle(title)

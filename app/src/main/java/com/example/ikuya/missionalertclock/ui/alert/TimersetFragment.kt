@@ -33,9 +33,8 @@ class TimersetFragment: Fragment(), TimePickerDialog.OnTimeSetListener {
     }
 
     override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
-        lateinit var alarmservice: AlarmService
         super.onViewCreated(view, savedInstanceState)
-        alarmservice = AlarmService(this as Context)
+        var alarmservice = AlarmService(this.requireContext())
         val appButton: Button = view.findViewById(R.id.timerstartbtn)
         appButton.setOnClickListener {
             val intent = Intent(activity, DuringAlarmSetClock::class.java)
