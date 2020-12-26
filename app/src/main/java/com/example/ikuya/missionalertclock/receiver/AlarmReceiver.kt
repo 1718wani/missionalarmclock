@@ -1,11 +1,8 @@
 package com.example.ikuya.missionalertclock.receiver
 
-import android.app.Activity
+import android.app.*
 import android.app.Notification.EXTRA_NOTIFICATION_ID
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.app.NotificationManager.IMPORTANCE_HIGH
-import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -64,6 +61,7 @@ class AlarmReceiver : BroadcastReceiver(){
             }
             // Register the channel with the system
             getNotificationManager(context).createNotificationChannel(channel)
+
         }
     }
     private fun getNotificationManager(context: Context): NotificationManager {
@@ -83,8 +81,10 @@ class AlarmReceiver : BroadcastReceiver(){
     fun buildNotification(context: Context, title: String, text: String ) {
 
         // Create an explicit intent for an Activity in your app
+        createNotificationChannel(context)
 
-        val mainscreenintent = Intent(this as Context, RingingAlarm::class.java).apply {
+
+        val mainscreenintent = Intent(context, RingingAlarm::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         val pendingIntent: PendingIntent =
@@ -95,15 +95,15 @@ class AlarmReceiver : BroadcastReceiver(){
             putExtra(EXTRA_NOTIFICATION_ID, 0)
         }
         val snoozePendingIntent: PendingIntent =
-            PendingIntent.getBroadcast(this , 0, snoozeIntent, 0)
-        val builder = NotificationCompat.Builder(this,channelId )
+            PendingIntent.getBroadcast(context , 0, snoozeIntent, 0)
+        val builder = NotificationCompat.Builder(context,channelId )
             .setSmallIcon(R.drawable.notification_icon)
             .setContentTitle(title)
             .setContentText(text)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setContentIntent(pendingIntent)
             .addAction(
-                R.drawable.ic_snooze, getString(R.string.snooze),
+                R.drawable.ic_snooze, "スヌーズ",
                 snoozePendingIntent
             )
 

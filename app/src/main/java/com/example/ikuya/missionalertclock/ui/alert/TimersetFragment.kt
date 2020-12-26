@@ -40,7 +40,7 @@ class TimersetFragment: Fragment(), TimePickerDialog.OnTimeSetListener {
             val intent = Intent(activity, DuringAlarmSetClock::class.java)
             startActivity(intent)
             val timemill = getMilliFromDate(clickListener.toString())
-            (alarmservice.setExactAlarm(timemill))
+            alarmservice.setExactAlarm(timemill)
 
         }
         val nxtbtn : Button = view.findViewById(R.id.timechangebtn) as Button
