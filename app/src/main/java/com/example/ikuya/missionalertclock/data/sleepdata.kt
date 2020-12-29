@@ -25,10 +25,10 @@ data class sleepdata (
         var todaysfeeling: Int = -1,
 
         @ColumnInfo(name = "most_important_job")
-        var mostimportantjob: Int = -1,
+        var mostimportantjob: String = "",
 
         @ColumnInfo(name = "benefit_done")
-        var benefitdone : Int = -1,
+        var benefitdone : String = "",
 
         @ColumnInfo(name = "expected_feeling")
         var expctedfeeling: Int = -1,
