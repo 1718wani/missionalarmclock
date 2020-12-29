@@ -26,5 +26,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.065" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="415dp"
+            android:layout_height="551dp"
+            tools:layout_editor_absoluteX="-5dp"
+            tools:layout_editor_absoluteY="87dp" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="データをクリア"
+            tools:layout_editor_absoluteX="54dp"
+            tools:layout_editor_absoluteY="657dp" />
+
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ログイン"
+            tools:layout_editor_absoluteX="227dp"
+            tools:layout_editor_absoluteY="657dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
