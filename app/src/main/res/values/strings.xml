@@ -29,5 +29,6 @@
     <string name="TimerSetFragmentCurrentTimeTxt" >ここに文字が入ります</string>>
     <string name="snooze" >スヌーズ</string>>
     <string name="channel_name" >001</string>>
+    <string name="menu_label_add_record">記録を追加</string>
 
 </resources>

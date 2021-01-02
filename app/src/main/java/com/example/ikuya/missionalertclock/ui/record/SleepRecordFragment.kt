@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.ikuya.missionalertclock.R
+import com.example.ikuya.missionalertclock.data.SleepDataBase
 import com.example.ikuya.missionalertclock.databinding.SleeprecordFragmentBinding
 
 class SleepRecordFragment : Fragment() {
@@ -23,6 +24,7 @@ class SleepRecordFragment : Fragment() {
     ): View? {
         binding = SleeprecordFragmentBinding.inflate(inflater,container,false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

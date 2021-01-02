@@ -16,6 +16,7 @@ import androidx.viewpager.widget.ViewPager
 import com.example.ikuya.missionalertclock.R
 import com.example.ikuya.missionalertclock.alarm.DuringAlarmSetClock
 import com.example.ikuya.missionalertclock.service.AlarmService
+import com.example.ikuya.missionalertclock.ui.fillout.today.TodaysReviewActivity
 import kotlinx.android.synthetic.main.timerset_fragment.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -37,7 +38,7 @@ class TimersetFragment: Fragment(), TimePickerDialog.OnTimeSetListener {
         var alarmservice = AlarmService(this.requireContext())
         val appButton: Button = view.findViewById(R.id.timerstartbtn)
         appButton.setOnClickListener {
-            val intent = Intent(activity, DuringAlarmSetClock::class.java)
+            val intent = Intent(activity, TodaysReviewActivity::class.java)
             startActivity(intent)
             val timemill = getMilliFromDate(clickListener.toString())
             alarmservice.setExactAlarm(timemill)
