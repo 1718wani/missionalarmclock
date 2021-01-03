@@ -6,18 +6,18 @@ import androidx.room.PrimaryKey
 import com.example.ikuya.missionalertclock.R
 
 
-enum class FEELING(val drawableRes: Int){
-        HAPPY(R.drawable.happyface),
-        RELIEVED (R.drawable.releavedface),
-        ANGRY(R.drawable.angryface),
-        SAD (R.drawable.sadface),
-        OWATA (R.drawable.owataface),
-        TIRED(R.drawable.tiredface),
+enum class FEELING{
+        HAPPY,
+        RELIEVED,
+        ANGRY,
+        SAD,
+        OWATA,
+        TIRED,
 }
 
-enum class DEVELOPEDGOAL(val drawableRes: Int){
-        GOALYES(R.drawable.check),
-        GOALNO(R.drawable.batsudayo)
+enum class DEVELOPEDGOAL{
+        GOALYES,
+        GOALNO,
 }
 
 @Entity(tableName = "daily_sleep_quality_table")
@@ -35,13 +35,13 @@ data class Sleepdata (
         var endTimeMilli: Long = startTimeMilli,
 
         @ColumnInfo(name = "whether_todays_goal_developed")
-        var whethertodaysgoaldeveloped : Boolean = false,
+        var whethertodaysgoaldeveloped : DEVELOPEDGOAL = DEVELOPEDGOAL.GOALYES,
 
         @ColumnInfo(name = "done_thing")
-        var donething: String ,
+        var donething: String,
 
         @ColumnInfo(name = "todays_feeling")
-        var todaysfeeling: Int = -1,
+        var todaysfeeling: FEELING = FEELING.HAPPY,
 
         @ColumnInfo(name = "most_important_job")
         var mostimportantjob: String = "",
