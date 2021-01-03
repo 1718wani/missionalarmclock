@@ -1,13 +1,5 @@
 package com.example.ikuya.missionalertclock.util
 
-import android.content.res.Resources
-import android.os.Build
-import android.text.Html
-import android.text.Spanned
-import androidx.core.text.HtmlCompat
-import com.example.ikuya.missionalertclock.R
-import com.example.ikuya.missionalertclock.data.sleepdata
-
 //fun formatNights(nights: List<sleepdata>, resources: Resources): Spanned {
 //    val sb = StringBuilder()
 //    sb.apply {

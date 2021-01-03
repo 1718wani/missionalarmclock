@@ -3,9 +3,25 @@ package com.example.ikuya.missionalertclock.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.ikuya.missionalertclock.R
+
+
+enum class FEELING(val drawableRes: Int){
+        HAPPY(R.drawable.happyface),
+        RELIEVED (R.drawable.releavedface),
+        ANGRY(R.drawable.angryface),
+        SAD (R.drawable.sadface),
+        OWATA (R.drawable.owataface),
+        TIRED(R.drawable.tiredface),
+}
+
+enum class DEVELOPEDGOAL(val drawableRes: Int){
+        GOALYES(R.drawable.check),
+        GOALNO(R.drawable.batsudayo)
+}
 
 @Entity(tableName = "daily_sleep_quality_table")
-data class sleepdata (
+data class Sleepdata (
         @PrimaryKey(autoGenerate = true)
         var nightId: Long = 0L,
 
@@ -22,7 +38,7 @@ data class sleepdata (
         var whethertodaysgoaldeveloped : Boolean = false,
 
         @ColumnInfo(name = "done_thing")
-        var donething: Int = -1,
+        var donething: String ,
 
         @ColumnInfo(name = "todays_feeling")
         var todaysfeeling: Int = -1,

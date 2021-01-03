@@ -1,16 +1,11 @@
 package com.example.ikuya.missionalertclock.ui.record
 
-import android.app.Activity
 import android.app.Application
-import android.content.Context
-import androidx.fragment.app.Fragment
+import androidx.annotation.UiThread
 import androidx.lifecycle.*
 import com.example.ikuya.missionalertclock.data.LogRepository
-import com.example.ikuya.missionalertclock.data.SleepDataBase
 import com.example.ikuya.missionalertclock.data.SleepDataBase.SleepDatabase.Companion.getDatabase
-import com.example.ikuya.missionalertclock.data.SleepDatabaseDao
-import com.example.ikuya.missionalertclock.data.sleepdata
-import  com.example.ikuya.missionalertclock.databinding.SleeprecordFragmentBinding
+import com.example.ikuya.missionalertclock.data.Sleepdata
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -18,12 +13,26 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class SleepRecordViewModel:ViewModel() {
+class SleepRecordViewModel(app:Application):AndroidViewModel(app) {
+
+
+    val donethingList = MutableLiveData<MutableList<Sleepdata>>()
+
+    init {
+        donethingList.value = mutableListOf()
+    }
+
+    @UiThread
+    fun adddonething(sleepdataLog: Sleepdata) {
+        val list = donethingList.value ?: return
+        list.add(sleepdataLog)
+        donethingList.value = list
+    }
 
     // データ操作用のリポジトリクラス
     val repository: LogRepository
     // 全データリスト
-    val stepCountList: LiveData<List<sleepdata>>
+    val stepCountList: LiveData<List<Sleepdata>>
 
     // coroutine用
     private var parentJob = Job()
@@ -34,7 +43,7 @@ class SleepRecordViewModel:ViewModel() {
     private val scope = CoroutineScope(coroutineContext)
 
     init {
-        val logDao = getDatabase(this as Context).sleepDatabaseDao()
+        val logDao = getDatabase(app).sleepDatabaseDao()
         repository = LogRepository(logDao)
         stepCountList = repository.allLogs
     }
@@ -44,7 +53,7 @@ class SleepRecordViewModel:ViewModel() {
         parentJob.cancel()
     }
 
-    fun addStepCount(stepLog: sleepdata) = scope.launch(Dispatchers.IO){
+    fun addStepCount(stepLog: Sleepdata) = scope.launch(Dispatchers.IO){
         repository.insert(stepLog)
     }
 

@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 class SleepDataBase {
 
-    @Database(entities = [sleepdata::class], version = 1, exportSchema = false)
+    @Database(entities = [Sleepdata::class], version = 1, exportSchema = false)
     abstract class SleepDatabase : RoomDatabase() {
 
         abstract fun sleepDatabaseDao(): SleepDatabaseDao

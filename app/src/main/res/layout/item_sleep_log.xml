@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="359dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/titleDoneThing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/titledonething" />
+
+        <TextView
+            android:id="@+id/varibledonething"
+            android:layout_width="158dp"
+            android:layout_height="wrap_content"
+            android:text="@{Integer.toString(sleepdatalog.donething)}"
+            android:textColor="#0B0A0A"
+            android:textSize="24sp"
+            tools:text="おきれた" />
+
+        <ImageView
+            android:id="@+id/feelingImageView"
+            android:layout_width="161dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:src="@{sleepdatalog.feeling}"
+            tools:src="@drawable/happyface" />
+
+        <ImageView
+            android:id="@+id/goaldevelopedView"
+            android:layout_width="161dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:src="@{sleepdatalog.goaldeveloped}"
+            tools:src="@drawable/check" />
+
+
+    </LinearLayout>
+</FrameLayout>
