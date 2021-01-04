@@ -7,13 +7,13 @@ import androidx.lifecycle.ViewModel
 import com.example.ikuya.missionalertclock.data.Sleepdata
 
 class TodaysReviewActivityViewModel :ViewModel(){
-    private val _donethinglog = MutableLiveData<Sleepdata>()
+    private val _sleeplog = MutableLiveData<Sleepdata>()
 
-    val donethinglog = _donethinglog as LiveData<Sleepdata>
+    val sleeplog = _sleeplog as LiveData<Sleepdata>
 
     @UiThread
     fun changeLog(data :Sleepdata){
-        _donethinglog.value = data
+        _sleeplog.value = data
     }
 
 

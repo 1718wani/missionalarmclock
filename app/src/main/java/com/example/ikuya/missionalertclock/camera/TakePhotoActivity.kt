@@ -139,16 +139,6 @@ class TakePhotoActivity : AppCompatActivity() {
 
     }
 
-//    fun MovetoSuccessPage (showTxt:String){
-//        val regex = Regex("p")
-//        if{
-//            regex.containsMatchIn(showTxt)
-//
-//        }else{
-//
-//        }
-//
-//    }
 
 
 
