@@ -64,6 +64,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/SleepRecordTitle"
             app:layout_constraintVertical_bias="0.105"
-            app:items="@{viewmodel.Slee}"/>
+            app:items="@{viewmodel.donethingList}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

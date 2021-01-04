@@ -1,5 +1,6 @@
 package com.example.ikuya.missionalertclock.util
 
+import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -42,3 +43,4 @@ fun setLogItems(view: RecyclerView, logs: List<Sleepdata>?) {
         adapter.setList(logs)
     }
 }
+
