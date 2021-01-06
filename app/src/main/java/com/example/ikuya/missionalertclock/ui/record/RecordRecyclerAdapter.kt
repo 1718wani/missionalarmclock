@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.item_sleep_log.view.*
 class RecordRecyclerAdapter (private var list: List<SleepData>): RecyclerView.Adapter<RecordRecyclerAdapter.LogViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LogViewHolder {
         val binding: ItemSleepLogBinding = DataBindingUtil.inflate(
+            //ここ怪しいぞParentって書いてある
             LayoutInflater.from(parent.context), R.layout.item_sleep_log, parent, false
         )
         return LogViewHolder(binding)

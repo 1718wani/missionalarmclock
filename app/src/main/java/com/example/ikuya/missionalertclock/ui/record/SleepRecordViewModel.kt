@@ -4,29 +4,24 @@ import android.app.Application
 import androidx.annotation.UiThread
 import androidx.lifecycle.*
 //import com.example.ikuya.missionalertclock.data.LogRepository
-import com.example.ikuya.missionalertclock.data.SleepDataBase.SleepDatabase.Companion.getDatabase
 import com.example.ikuya.missionalertclock.data.SleepData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 //import com.example.ikuya.missionalertclock.util.formatNights
-import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
 class SleepRecordViewModel(app:Application):AndroidViewModel(app) {
 
 
-    val donethingList = MutableLiveData<MutableList<SleepData>>()
+    val sleepRecordList = MutableLiveData<MutableList<SleepData>>()
 
     init {
-        donethingList.value = mutableListOf()
+        sleepRecordList.value = mutableListOf()
     }
 
     @UiThread
-    fun adddonething(sleepDataLog: SleepData) {
-        val list = donethingList.value ?: return
+    fun addSleepRecord(sleepDataLog: SleepData) {
+        val list = sleepRecordList.value ?: return
+        //ここはリターンするだけにしなくてもよい
         list.add(sleepDataLog)
-        donethingList.value = list
+        sleepRecordList.value = list
     }
 
 //    // データ操作用のリポジトリクラス

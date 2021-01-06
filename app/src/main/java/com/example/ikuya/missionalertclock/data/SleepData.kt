@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.ikuya.missionalertclock.R
+import java.io.Serializable
 
 
 enum class FEELING{
@@ -55,4 +56,4 @@ data class SleepData (
 //        @ColumnInfo(name = "quality_rating")
 //        var sleepQuality: Int = -1
 
-        )
+        ):Serializable

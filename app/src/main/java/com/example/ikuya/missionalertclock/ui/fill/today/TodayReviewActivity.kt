@@ -15,6 +15,15 @@ import kotlinx.android.synthetic.main.todays_review_activity.*
 class TodayReviewActivity:AppCompatActivity(){
     lateinit var viewModel:TodayReviewActivityViewModel
 
+
+    //ぶっちゃけ必要性がわからない
+    companion object {
+        fun newInstance(): TodayReviewActivity {
+            val f = TodayReviewActivity()
+            return f
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.todays_review_activity)
@@ -42,6 +51,7 @@ class TodayReviewActivity:AppCompatActivity(){
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
         }
+        return
     }
 
     //順番どおりの実装になるため順番がよく入れ替わる際は要検討
