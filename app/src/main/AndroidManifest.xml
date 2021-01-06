@@ -36,6 +36,10 @@
         <activity android:name=".camera.TakePhotoActivity">
         </activity>
 
+        <activity android:name=".ui.fill.today.TodayReviewActivity">
+
+        </activity>
+
         <activity android:name=".alarm.DuringAlarmSetClock">
         </activity>
 

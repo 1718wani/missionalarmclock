@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="view_model" type="com.example.ikuya.missionalertclock.ui.fillout.today.TodaysReviewActivityViewModel"/>
-        <import type="java.lang.Integer" />
-        <import type="android.view.View"/>
+        <variable name="view_model" type="com.example.ikuya.missionalertclock.ui.fill.today.TodayReviewActivityViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context = ".ui.fill.today.TodayReviewActivity">
 
         <TextView
             android:id="@+id/textView"
@@ -118,7 +116,7 @@
         </RadioGroup>
 
         <Spinner
-            android:id="@+id/feeling-spinner"
+            android:id="@+id/feeling_spinner"
             android:layout_width="213dp"
             android:layout_height="40dp"
             android:layout_marginTop="40dp"
@@ -132,7 +130,5 @@
             app:layout_constraintStart_toStartOf="@+id/textView4"
             app:layout_constraintTop_toBottomOf="@+id/textView4"
             app:layout_constraintVertical_bias="0.812" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

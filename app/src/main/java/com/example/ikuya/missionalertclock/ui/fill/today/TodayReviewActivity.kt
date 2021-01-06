@@ -1,27 +1,19 @@
-package com.example.ikuya.missionalertclock.ui.fillout.today
+package com.example.ikuya.missionalertclock.ui.fill.today
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.impl.utils.Optional.of
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.ViewModelStores.of
 import com.example.ikuya.missionalertclock.R
 import com.example.ikuya.missionalertclock.data.DEVELOPEDGOAL
 import com.example.ikuya.missionalertclock.data.FEELING
-import com.example.ikuya.missionalertclock.data.Sleepdata
+import com.example.ikuya.missionalertclock.data.SleepData
 import com.example.ikuya.missionalertclock.ui.MainActivity
-import com.google.android.gms.common.api.internal.ActivityLifecycleObserver.of
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.todays_review_activity.*
-import java.text.FieldPosition
-import java.util.EnumSet.of
-import java.util.stream.Stream.of
 
-class TodaysReviewActivity:AppCompatActivity(){
-    lateinit var viewModel:TodaysReviewActivityViewModel
+class TodayReviewActivity:AppCompatActivity(){
+    lateinit var viewModel:TodayReviewActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +21,7 @@ class TodaysReviewActivity:AppCompatActivity(){
         setSupportActionBar(toolbar)
 
 
-        viewModel  = ViewModelProvider(this).get(TodaysReviewActivityViewModel::class.java)
+        viewModel  = ViewModelProvider(this).get(TodayReviewActivityViewModel::class.java)
 
         radio_group.check(R.id.radioButton)
 
@@ -37,7 +29,7 @@ class TodaysReviewActivity:AppCompatActivity(){
             val developedgoal = GoalFromRadioId(radio_group.checkedRadioButtonId)
             val donething = editTextTextMultiLine.text.toString()
             val feeling = feelingFromSpinner(feeling_spinner.selectedItemPosition)
-            val sleepdata = Sleepdata(developedgoal,donething,feeling)
+            val sleepdata = SleepData(developedgoal,donething,feeling)
 
             viewModel.changeLog(sleepdata)
         }

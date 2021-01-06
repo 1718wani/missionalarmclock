@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
-        <variable name = "sleepdatalog"
-                  type="com.example.ikuya.missionalertclock.data.Sleepdata"/>
+        <variable name = "sleepDataLog"
+                  type = "com.example.ikuya.missionalertclock.data.SleepData"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout  android:orientation="horizontal"
@@ -32,7 +35,7 @@
             android:layout_marginStart="14dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="2dp"
-            android:text="@{Integer.toString(sleepdatalog.donething)}"
+            android:text="@{sleepDataLog.donething}"
             android:textColor="#0B0A0A"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -48,7 +51,7 @@
             android:layout_width="161dp"
             android:layout_height="32dp"
             android:layout_marginTop="8dp"
-            android:src="@{sleepdatalog.todaysfeeling}"
+            android:src="@{sleepDataLog.todaysfeeling}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/varibledonething"
             app:layout_constraintTop_toTopOf="parent"
@@ -61,7 +64,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="3dp"
             android:layout_marginBottom="4dp"
-            android:src="@{sleepdatalog.whethertodaysgoaldeveloped}"
+            android:src="@{sleepDataLog.whethertodaysgoaldeveloped}"
             app:layout_constraintBottom_toTopOf="@+id/titleDoneThing"
             app:layout_constraintEnd_toStartOf="@+id/varibledonething"
             app:layout_constraintHorizontal_bias="0.0"
@@ -69,7 +72,5 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             tools:src="@drawable/check" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
