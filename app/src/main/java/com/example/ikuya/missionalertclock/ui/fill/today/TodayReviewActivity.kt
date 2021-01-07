@@ -3,12 +3,14 @@ package com.example.ikuya.missionalertclock.ui.fill.today
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.ikuya.missionalertclock.R
 import com.example.ikuya.missionalertclock.data.DEVELOPEDGOAL
 import com.example.ikuya.missionalertclock.data.FEELING
 import com.example.ikuya.missionalertclock.data.SleepData
 import com.example.ikuya.missionalertclock.ui.MainActivity
+import com.example.ikuya.missionalertclock.ui.MainActivity.Companion.REQUEST_CODE_LOGITEM
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.todays_review_activity.*
 
@@ -22,7 +24,10 @@ class TodayReviewActivity:AppCompatActivity(){
             val f = TodayReviewActivity()
             return f
         }
+       const val EXTRA_KEY_DATA = "data"
     }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,9 +54,17 @@ class TodayReviewActivity:AppCompatActivity(){
 
         cancelreviewtomainBtn.setOnClickListener {
             val intent = Intent(this,MainActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, REQUEST_CODE_LOGITEM)
         }
-        return
+
+        viewModel.sleepLog.observe(this, Observer {
+            val dataIntent = Intent()
+            dataIntent.putExtra(EXTRA_KEY_DATA, it)
+            setResult(RESULT_OK, dataIntent)
+            finish()
+        })
+
+
     }
 
     //順番どおりの実装になるため順番がよく入れ替わる際は要検討

@@ -12,6 +12,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+//   ここらへんのオブジェクトをどこにおくのかとかがぶっちゃけわかっていない。
+    companion object {
+        const val REQUEST_CODE_LOGITEM = 100
+    }
 
     private lateinit var navController: NavController
     //最初にインスタンス化することができないものなのでとりあえず初期化するためにlateinit使っていますね。

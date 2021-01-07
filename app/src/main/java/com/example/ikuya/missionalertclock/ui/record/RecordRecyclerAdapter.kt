@@ -34,9 +34,5 @@ class RecordRecyclerAdapter (private var list: List<SleepData>): RecyclerView.Ad
     }
 
     class LogViewHolder(val binding: ItemSleepLogBinding)
-        : RecyclerView.ViewHolder(binding.root)  {
-        val donethings = itemView.varibledonething!!
-        val goaldeveloped = itemView.goaldevelopedView!!
-        val feeling = itemView.feelingImageView!!
-    }
+        : RecyclerView.ViewHolder(binding.root)
 }

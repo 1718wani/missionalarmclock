@@ -15,18 +15,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ikuya.missionalertclock.R
 import com.example.ikuya.missionalertclock.data.SleepData
 import com.example.ikuya.missionalertclock.databinding.SleeprecordFragmentBinding
+import com.example.ikuya.missionalertclock.ui.MainActivity.Companion.REQUEST_CODE_LOGITEM
+import com.example.ikuya.missionalertclock.ui.fill.today.TodayReviewActivity
 import kotlinx.android.synthetic.main.sleeprecord_fragment.*
 
 class SleepRecordFragment : Fragment() {
+
+
 
 //    private var viewModel :SleepRecordViewModel by lazy { ViewModelProvider.NewInstanceFactory().create(SleepRecordViewModel::class.java) }
     private lateinit var binding :SleeprecordFragmentBinding
     private lateinit var adapter : RecordRecyclerAdapter
     private lateinit var viewModel : SleepRecordViewModel
 
-    companion object {
-        const val EXTRA_KEY_DATA = "data"
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,14 +44,14 @@ class SleepRecordFragment : Fragment() {
 
 
         recordlist.layoutManager = LinearLayoutManager(this.requireContext())
-        adapter = RecordRecyclerAdapter(viewModel.sleepRecordList.value as List<SleepData>)
+        adapter = RecordRecyclerAdapter(viewModel.sleepRecordList.value!!)
         recordlist.adapter = adapter
 
         val decor = DividerItemDecoration(this.requireContext(), DividerItemDecoration.VERTICAL)
         recordlist.addItemDecoration(decor)
 
         return binding.root
-    }    
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -60,14 +62,29 @@ class SleepRecordFragment : Fragment() {
             ).get(SleepRecordViewModel::class.java)
         }
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewmodel = viewModel
 
+    }
 
-//        viewModel.sleepRecordList.observe(this.requireActivity(), Observer {
-//            val dataIntent = Intent()
-//            dataIntent.putExtra(EXTRA_KEY_DATA, it)
-//            setResult(RESULT_OK, dataIntent)
-//            finish()
-//        })
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        when (requestCode) {
+            REQUEST_CODE_LOGITEM -> {
+                onNewStepCountLog(resultCode, data)
+                return
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun onNewStepCountLog(resultCode: Int, data: Intent?) {
+        when (resultCode) {
+            RESULT_OK -> {
+                val log = data!!.getSerializableExtra(TodayReviewActivity.EXTRA_KEY_DATA) as SleepData
+                viewModel.addSleepRecord(log)
+            }
+        }
     }
 
 }
