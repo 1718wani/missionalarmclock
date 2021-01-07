@@ -20,10 +20,6 @@ class TodayReviewActivity:AppCompatActivity(){
 
     //ぶっちゃけ必要性がわからない
     companion object {
-        fun newInstance(): TodayReviewActivity {
-            val f = TodayReviewActivity()
-            return f
-        }
        const val EXTRA_KEY_DATA = "data"
     }
 

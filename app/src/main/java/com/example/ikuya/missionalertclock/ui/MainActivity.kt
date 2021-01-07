@@ -28,6 +28,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
+
+
+
+
 //        var alarmservice = AlarmService(this)
 
         navController = Navigation.findNavController(this,R.id.nav_host_fragment)

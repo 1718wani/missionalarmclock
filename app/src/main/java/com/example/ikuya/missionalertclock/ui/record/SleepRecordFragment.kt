@@ -3,6 +3,7 @@ package com.example.ikuya.missionalertclock.ui.record
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
+import android.provider.DocumentsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,21 +36,20 @@ class SleepRecordFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.setContentView(this.requireActivity(), R.layout.sleeprecord_fragment)
+            DataBindingUtil.inflate(this.layoutInflater, R.layout.sleeprecord_fragment,container,false)
         viewModel = ViewModelProvider(this).get(SleepRecordViewModel::class.java)
 
         binding.lifecycleOwner = this
         binding.viewmodel = viewModel
-//        これいるかどうかわからない。Rootの意味を調べたい。
 
 
-        recordlist.layoutManager = LinearLayoutManager(this.requireContext())
+        recordlist?.layoutManager = LinearLayoutManager(this.requireContext())
         adapter = RecordRecyclerAdapter(viewModel.sleepRecordList.value!!)
-        recordlist.adapter = adapter
+        recordlist?.adapter = adapter
 
         val decor = DividerItemDecoration(this.requireContext(), DividerItemDecoration.VERTICAL)
-        recordlist.addItemDecoration(decor)
-
+        recordlist?.addItemDecoration(decor)
+//        これいるかどうかわからない。Rootの意味を調べたい。
         return binding.root
     }
 
