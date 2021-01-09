@@ -35,4 +35,5 @@ class RecordRecyclerAdapter (private var list: List<SleepData>): RecyclerView.Ad
 
     class LogViewHolder(val binding: ItemSleepLogBinding)
         : RecyclerView.ViewHolder(binding.root)
+
 }

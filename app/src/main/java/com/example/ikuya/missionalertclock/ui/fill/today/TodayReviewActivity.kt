@@ -60,6 +60,8 @@ class TodayReviewActivity:AppCompatActivity(){
             finish()
         })
 
+        return
+
 
     }
 

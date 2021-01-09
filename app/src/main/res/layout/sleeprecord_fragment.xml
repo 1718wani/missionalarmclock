@@ -55,15 +55,15 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recordlist"
-            android:layout_width="409dp"
-            android:layout_height="569dp"
+            android:layout_width="393dp"
+            android:layout_height="415dp"
             android:layout_marginStart="1dp"
             android:layout_marginEnd="1dp"
+            app:items="@{viewmodel.sleepRecordList}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/SleepRecordTitle"
-            app:layout_constraintVertical_bias="0.105"
-            app:items="@{viewmodel.sleepRecordList}"/>
+            app:layout_constraintVertical_bias="0.105" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

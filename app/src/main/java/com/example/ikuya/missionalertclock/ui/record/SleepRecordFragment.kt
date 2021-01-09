@@ -4,6 +4,7 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.provider.DocumentsContract
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +19,6 @@ import com.example.ikuya.missionalertclock.data.SleepData
 import com.example.ikuya.missionalertclock.databinding.SleeprecordFragmentBinding
 import com.example.ikuya.missionalertclock.ui.MainActivity.Companion.REQUEST_CODE_LOGITEM
 import com.example.ikuya.missionalertclock.ui.fill.today.TodayReviewActivity
-import kotlinx.android.synthetic.main.sleeprecord_fragment.*
 
 class SleepRecordFragment : Fragment() {
 
@@ -43,12 +43,21 @@ class SleepRecordFragment : Fragment() {
         binding.viewmodel = viewModel
 
 
-        recordlist?.layoutManager = LinearLayoutManager(this.requireContext())
+        binding.recordlist.layoutManager = LinearLayoutManager(this.requireContext())
         adapter = RecordRecyclerAdapter(viewModel.sleepRecordList.value!!)
-        recordlist?.adapter = adapter
+        viewModel.sleepRecordList.observe(this.viewLifecycleOwner, { list ->
+            adapter.setList(list)
+        })
+        Log.d("TAG" , "$binding.recordlist")
+        binding.recordlist.adapter = adapter
+
+        //val record = binding.recordlist
+        //        record.layoutManager = LinearLayoutManager(this.requireContext())
+        //        adapter = RecordRecyclerAdapter(viewModel.sleepRecordList.value!!)
+        //        record.adapter = adapter
 
         val decor = DividerItemDecoration(this.requireContext(), DividerItemDecoration.VERTICAL)
-        recordlist?.addItemDecoration(decor)
+        binding.recordlist.addItemDecoration(decor)
 //        これいるかどうかわからない。Rootの意味を調べたい。
         return binding.root
     }
@@ -68,17 +77,18 @@ class SleepRecordFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
+        super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             REQUEST_CODE_LOGITEM -> {
-                onNewStepCountLog(resultCode, data)
+                onNewSleepCountLog(resultCode, data)
                 return
             }
         }
 
-        super.onActivityResult(requestCode, resultCode, data)
+
     }
 
-    private fun onNewStepCountLog(resultCode: Int, data: Intent?) {
+    private fun onNewSleepCountLog(resultCode: Int, data: Intent?) {
         when (resultCode) {
             RESULT_OK -> {
                 val log = data!!.getSerializableExtra(TodayReviewActivity.EXTRA_KEY_DATA) as SleepData
