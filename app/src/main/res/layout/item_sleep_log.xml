@@ -18,15 +18,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="255dp"
+            android:layout_marginEnd="200dp"
             android:layout_marginBottom="2dp"
             android:text="@string/titledonething"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.72"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/goaldevelopedView"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.002" />
 
         <TextView
             android:id="@+id/varibledonething"
@@ -46,10 +46,27 @@
             app:layout_constraintVertical_bias="0.0"
             tools:text="おきれた" />
 
+<!--        <NumberPicker-->
+<!--            android:id="@+id/date"-->
+<!--            android:layout_width="98dp"-->
+<!--            android:layout_height="27dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_marginBottom="2dp"-->
+<!--            android:text="@{sleepDataLog.nightId}"-->
+<!--            android:textColor="#0B0A0A"-->
+<!--            android:textSize="24sp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/feelingImageView"-->
+<!--            app:layout_constraintHorizontal_bias="0.0"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0.0"-->
+<!--            tools:text="おきれた" />-->
+
         <ImageView
             android:id="@+id/feelingImageView"
-            android:layout_width="161dp"
-            android:layout_height="32dp"
+            android:layout_width="34dp"
+            android:layout_height="35dp"
             android:layout_marginTop="8dp"
             android:src="@{sleepDataLog.todaysfeeling}"
             app:layout_constraintEnd_toEndOf="parent"
@@ -67,10 +84,11 @@
             android:src="@{sleepDataLog.whethertodaysgoaldeveloped}"
             app:layout_constraintBottom_toTopOf="@+id/titleDoneThing"
             app:layout_constraintEnd_toStartOf="@+id/varibledonething"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.354"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             tools:src="@drawable/check" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

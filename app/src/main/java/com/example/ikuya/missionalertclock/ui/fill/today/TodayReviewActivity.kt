@@ -36,9 +36,11 @@ class TodayReviewActivity:AppCompatActivity(){
         radio_group.check(R.id.radioButton)
 
         cancelreviewtomainBtn.setOnClickListener {
+//            val nightid = System.currentTimeMillis()
             val developedgoal = GoalFromRadioId(radio_group.checkedRadioButtonId)
             val donething = editTextTextMultiLine.text.toString()
             val feeling = feelingFromSpinner(feeling_spinner.selectedItemPosition)
+            //一旦PrimaryIDをすることによって解決
             val sleepdata = SleepData(developedgoal,donething,feeling)
 
             viewModel.changeLog(sleepdata)

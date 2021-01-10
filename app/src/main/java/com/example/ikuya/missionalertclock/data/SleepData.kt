@@ -1,8 +1,6 @@
 package com.example.ikuya.missionalertclock.data
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.example.ikuya.missionalertclock.R
 import java.io.Serializable
 
@@ -21,10 +19,37 @@ enum class DEVELOPEDGOAL{
         GOALNO,
 }
 
-//@Entity(tableName = "daily_sleep_quality_table")
+class FeelingConverter {
+
+        @TypeConverter
+        fun feelingToString(level: FEELING): String {
+                return level.name
+        }
+
+        @TypeConverter
+        fun stringToLevel(feelingString: String): FEELING {
+                return FEELING.valueOf(feelingString)
+        }
+}
+
+class DEVELOPMENTConverter {
+
+        @TypeConverter
+        fun weatherToString(developmentgoal: DEVELOPEDGOAL): String {
+                return developmentgoal.name
+        }
+
+        @TypeConverter
+        fun stringToWeather(developmentString: String): DEVELOPEDGOAL {
+                return DEVELOPEDGOAL.valueOf(developmentString)
+        }
+}
+
+
+@Entity(tableName = "daily_sleep_quality_table")
+@TypeConverters(FeelingConverter::class, DEVELOPMENTConverter::class)
 data class SleepData (
-//        @PrimaryKey(autoGenerate = true)
-//        var nightId: Long = 0L,
+
 //
 //        @ColumnInfo(name = "set_time_milli")
 //        val SetTimeMilli: Long = System.currentTimeMillis(),
@@ -34,14 +59,16 @@ data class SleepData (
 //
 //        @ColumnInfo(name = "end_time_milli")
 //        var endTimeMilli: Long = startTimeMilli,
-
-//        @ColumnInfo(name = "whether_todays_goal_developed")
+//        @PrimaryKey(autoGenerate = true)
+//        var nightId : Long = 0L,
+        @PrimaryKey
+        @ColumnInfo(name = "whether_todays_goal_developed")
         var whethertodaysgoaldeveloped : DEVELOPEDGOAL = DEVELOPEDGOAL.GOALYES,
 
-//        @ColumnInfo(name = "done_thing")
+        @ColumnInfo(name = "done_thing")
         var donething: String,
 
-//        @ColumnInfo(name = "todays_feeling")
+        @ColumnInfo(name = "todays_feeling")
         var todaysfeeling: FEELING = FEELING.HAPPY,
 
 //        @ColumnInfo(name = "most_important_job")
